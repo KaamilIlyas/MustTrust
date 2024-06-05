@@ -1,0 +1,53 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the navbar appears above other content */
+  }
+  
+
+/* nav .navbar {
+    position: fixed;
+    background: transparent !important;
+    margin: 0 auto;
+    width: 100%;
+} */
+
+nav .navbar-brand {
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #ffffff !important;
+}
+nav a.nav-link {
+    text-transform: capitalize;
+    transition: color 0.4s;
+    color: rgba(255, 255, 255, 0.6) !important;
+    margin: 10px 7px;
+}
+nav a.nav-link:hover {
+    transition: color 0.4s;
+    color: #ffffff !important;
+}
+
+nav a.nav-link::after {
+    content: "";
+    /* display: block; */
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+    transition: 0.5s;
+}
+
+/* #contactt {
+    color: #ffffff !important;
+    background-color:rgb(82, 82, 200);
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 110px;
+} */
+
+.navbar-nav .nav-link {
+    margin-left: 35px;
+}
