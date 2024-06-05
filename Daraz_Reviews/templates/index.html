@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daraz Reviews</title>
+</head>
+<body>
+    <h1>Daraz Reviews</h1>
+    <form method="post" action="{{ url_for('get_reviews_route') }}">
+        <label for="url">Enter Daraz Product URL:</label>
+        <input type="text" name="url" required>
+        <button type="submit">Get Reviews</button>
+    </form>
+</body>
+</html>
