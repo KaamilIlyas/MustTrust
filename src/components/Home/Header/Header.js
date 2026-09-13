@@ -16,15 +16,19 @@ const Header = () => {
 
     const toastTimerRef = useRef(null);
 
-    // Show toast with auto-hide after 7 seconds
-    const showToast = (message, type = 'info') => {
+    // Show toast. Error toasts stay visible until crossed out by the user.
+    const showToast = (message, type = 'error') => {
         if (toastTimerRef.current) {
             clearTimeout(toastTimerRef.current);
+            toastTimerRef.current = null;
         }
         setToast({ message, type });
-        toastTimerRef.current = setTimeout(() => {
-            setToast(null);
-        }, 7000);
+        // Error messages do NOT auto-hide; user must click '×' to dismiss them.
+        if (type !== 'error') {
+            toastTimerRef.current = setTimeout(() => {
+                setToast(null);
+            }, 7000);
+        }
     };
 
     // Cleanup timer on unmount
@@ -61,7 +65,6 @@ const Header = () => {
                 showToast(response.data.error, 'error');
             } else {
                 setResponseData(response.data);
-                showToast(`Analysis complete! ${response.data.review_count} actual reviews evaluated.`, 'success');
             }
             // URL is preserved so user doesn't have to re-paste for aspect analysis
         } catch (error) {
@@ -93,14 +96,13 @@ const Header = () => {
             }
 
             if (!response.data.aspect_extraction_results || response.data.aspect_extraction_results.length === 0) {
-                showToast('No aspect terms could be extracted from the reviews.', 'warning');
+                showToast('No aspect terms could be extracted from the reviews.', 'error');
                 return;
             }
 
             // Open in-app white sheet report modal (do not download straightaway)
             setAspectReportData(response.data);
             setShowAspectModal(true);
-            showToast('Aspect report generated! You can preview or download below.', 'success');
             // URL is preserved
         } catch (error) {
             console.error('Error:', error);
@@ -154,7 +156,6 @@ const Header = () => {
         });
 
         doc.save('aspect_extraction_results.pdf');
-        showToast('Report downloaded as PDF!', 'success');
     };
 
     return (

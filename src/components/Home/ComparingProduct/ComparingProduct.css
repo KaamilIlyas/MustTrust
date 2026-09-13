@@ -1,135 +1,396 @@
-form {
-    width: 100%;
-    margin: 25px auto;
-    text-align: center;
-    
-}
-input {
-    flex: 1; 
-    padding: 10px 20px;
-    border: 1px solid #4c5667;
-    border-radius: 30px;
-    font-size: 17px;
-    background-color: rgba(255, 255, 255, 0.85);
-    color: #4c5667;
-}
-input:focus {outline: 0;}
-
-#comparing-product button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    color: #fff;
-    background: #FB3E3E;
-}
-
-#comparing-product button:hover {
-    margin-bottom: -5px;
-}
-
-/* .first-url {
-    margin-left: 10px;
-} */
-
 #comparing-product {
     text-align: center;
-    padding-top: 48px;
-    padding-bottom: 80px;
+    padding-top: 60px;
+    padding-bottom: 90px;
     position: relative;
+    background-color: #f8fafc;
 }
+
 .price__title {
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     margin-bottom: 0px;
-    padding-bottom: 1rem;
-    line-height: 1;
-    font-size: 1.75rem;
-    font-weight: 500;
+    padding-bottom: 0.8rem;
+    line-height: 1.2;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
 }
+
 .price__subtitle {
-    width: 54%;
+    width: 65%;
+    max-width: 680px;
     margin: 0 auto;
-    color: black;
-    /* color: #95a0ab !important; */
-    letter-spacing: 0.02em;
-    font-size: 14.4px;
-    line-height: 24px;
-    padding-top: 24px;
-}
- /* .price-div {
-    padding: 50px 40px 50px 40px;
-    border: 1px solid #ecf0f5;
-    border-radius: 8px;
-    box-shadow: 0 0 1.25rem rgb(108 118 134 / 10%) !important;
-    font-family: "Rubik", sans-serif;
-}
-.price-div h4 {
-    font-weight: 500;
+    color: #64748b;
+    letter-spacing: 0.01em;
     font-size: 15px;
+    line-height: 25px;
+    padding-top: 18px;
 }
-.price-div h1 {
-    font-size: 36px;
-    padding-top: 5px;
+
+/* ============================================================
+   COMPARISON INPUT FORM
+   ============================================================ */
+.compare-form-wrapper {
+    max-width: 820px;
+    margin: 35px auto 0 auto;
+    padding: 0 15px;
+}
+
+.compare-inputs-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin: 0 auto;
+}
+
+.compare-inputs-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.compare-input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 20px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 30px;
+    font-size: 15px;
+    background-color: #ffffff;
+    color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.compare-input:focus {
+    outline: none;
+    border-color: #522da8;
+    box-shadow: 0 0 0 3px rgba(82, 45, 168, 0.15);
+}
+
+.compare-vs-badge {
+    background: #522da8;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(82, 45, 168, 0.3);
+}
+
+.compare-action-btn {
+    padding: 12px 36px;
+    border: none;
+    border-radius: 30px;
+    color: #ffffff;
+    background: #FB3E3E;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(251, 62, 62, 0.35);
+    transition: all 0.2s ease;
+}
+
+.compare-action-btn:hover:not(:disabled) {
+    background: #e02828;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(251, 62, 62, 0.45);
+}
+
+.compare-action-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ============================================================
+   USER-FRIENDLY COMPARISON RESULTS CARD
+   ============================================================ */
+.comparison-results-card {
+    max-width: 820px;
+    margin: 40px auto 0 auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    animation: fadeInCardComp 0.35s ease-out;
+}
+
+@keyframes fadeInCardComp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comparison-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+
+.comparison-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comparison-icon {
+    font-size: 22px;
+}
+
+.comparison-card-title h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.comparison-close-btn {
+    background: #f1f5f9;
+    border: none;
+    color: #64748b;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.comparison-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Winner Banner */
+.comparison-winner-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 1px solid #fcd34d;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+}
+
+.winner-trophy {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.winner-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.winner-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #92400e;
+}
+
+.winner-score {
+    font-size: 15px;
+    color: #78350f;
+}
+
+/* Side-by-side Grid */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.compare-product-item {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.compare-product-item.winner-card {
+    border-color: #f59e0b;
+    background: #fffbeb;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
+}
+
+.product-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.product-item-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.product-winner-tag {
+    background: #f59e0b;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+}
+
+.product-score-display {
+    margin: 12px 0 16px 0;
+}
+
+.product-score-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.product-score-denom {
+    font-size: 16px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.product-progress-track {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.product-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-progress-fill.positive {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.product-progress-fill.negative {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.insufficient-score-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    border-radius: 8px;
+    color: #b91c1c;
+    font-size: 13px;
     font-weight: 600;
 }
-.price-div h6 {
-    font-size: 12px;
-    color: #95a0ab !important;
-}
-.gray-line {
-    background-color: #17171821;
-    color: #ffffff;
-    width: 80%;
-    height: 1px;
-    margin: 0 auto;
-    margin-top: 35px;
-}
-.price-div__table-info {
-    padding: 0;
-    margin-top: 35px;
-}
-.price-div__table-info li {
-    padding-top: 5px;
-    margin-bottom: 1rem;
-    font-size: 14.4px;
-    line-height: 24px;
-}
-.price-div__table-info li span {color: #FB3E3E; font-weight: bold}
-.price-div__btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    color: #fff !important;
-    background-color: #FB3E3E !important;
-}
-.price-active {
-    -webkit-box-shadow: 0 0rem 4rem rgb(0 0 0 / 10%) !important;
-    box-shadow: 0 0rem 4rem rgb(0 0 0 / 10%) !important;
-}  */
 
-@media (min-width: 200px) and (max-width: 994px) {
+.product-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.product-reviews-badge {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.product-status-pill {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+.product-status-pill.positive {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.product-status-pill.negative {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.product-status-pill.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES (Down to 320px)
+   ============================================================ */
+@media (max-width: 768px) {
     .price__subtitle {
+        width: 90%;
+    }
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .compare-inputs-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .compare-input {
         width: 100%;
     }
-    .price-div {
-        margin-top: 30px;
+    .compare-vs-badge {
+        padding: 4px 10px;
+        border-radius: 10px;
+    }
+    .comparison-results-card {
+        padding: 18px 16px;
+    }
+    .price__title {
+        font-size: 1.6rem;
     }
 }
 
-@media (min-width: 449px) and (max-width: 991px) { 
-    form {
-        display: flex;
-        flex-direction: column; 
-        align-items: center; 
+@media (max-width: 480px) {
+    #comparing-product {
+        padding-top: 40px;
+        padding-bottom: 60px;
     }
-    .first-url {
-        margin-right: 5px;
-        margin-bottom: 5px;
-    }
-}
-
-@media (min-width: 991px) and (max-width: 3000px) {
-    .first-url {
-        margin-right: 5px;
+    .compare-action-btn {
+        width: 100%;
     }
 }
