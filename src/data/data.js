@@ -25,21 +25,21 @@ export const data = {
         },
         {
             title: (
-            <a href='#'>{'Digital Design'} </a>
+            <a href='#features'>{'Digital Design'} </a>
             ),
             text: "Our digital design services focus on creating intuitive interfaces and user-friendly experiences.",
             icon: faDigitalTachograph
         },
         {
             title: (
-            <a href='#'>{'Data-driven Strategies'} </a>
+            <a href='#features'>{'Data-driven Strategies'} </a>
             ),
             text: 'We leverage data-driven strategies to deliver accurate and reliable ratings.',
             icon: faDatabase
         },
         {
             title: (
-            <a href='#'>{'Machine Learning Algorithm'} </a>
+            <a href='#features'>{'Machine Learning Algorithm'} </a>
             ),
             text: 'At the core of our system is a sophisticated machine learning algorithms trained on vast amounts of review data.',
             icon: faLanguage
