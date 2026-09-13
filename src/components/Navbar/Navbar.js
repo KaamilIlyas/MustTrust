@@ -35,7 +35,7 @@ window.addEventListener('scroll', function() {
                     <Nav.Link href="#home">Home</Nav.Link>
                     {/* <Nav.Link href="#services">Services</Nav.Link> */}
                     <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#compare">Compare</Nav.Link>
+                    <Nav.Link href="#comparing-product">Compare</Nav.Link>
                     {/* <Nav.Link href="#members">Team</Nav.Link> */}
                     <Nav.Link href="#questions">Questions</Nav.Link>
                     <Nav.Link id="contactt" href="#contact">Contact</Nav.Link>
