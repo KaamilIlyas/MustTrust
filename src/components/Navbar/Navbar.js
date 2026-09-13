@@ -31,12 +31,12 @@ window.addEventListener('scroll', function() {
                 <Navbar.Brand href="#home">TrustIsMust</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto" onSelect={handleNavItemClick}>
+                <Nav className="mx-auto" onSelect={handleNavItemClick}>
                     <Nav.Link href="#home">Home</Nav.Link>
                     {/* <Nav.Link href="#services">Services</Nav.Link> */}
                     <Nav.Link href="#features">Features</Nav.Link>
                     <Nav.Link href="#compare">Compare</Nav.Link>
-                    <Nav.Link href="#members">Team</Nav.Link>
+                    {/* <Nav.Link href="#members">Team</Nav.Link> */}
                     <Nav.Link href="#questions">Questions</Nav.Link>
                     <Nav.Link id="contactt" href="#contact">Contact</Nav.Link>
                 </Nav>

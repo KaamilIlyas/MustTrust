@@ -17,7 +17,7 @@ export default function Home() {
             <Features />
             <Banner />
             <ComparingProduct />
-            <Team />
+            {/* <Team /> */}
             {/* <Work /> */}
             <Sentiment />
             <BannerTwo />
