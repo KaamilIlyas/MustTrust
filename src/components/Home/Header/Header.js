@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Header.css';
 import jsPDF from 'jspdf';
 
-// aspect: https://www.daraz.pk/products/hp-1320-i451104523-s2144796198.html?search=1
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 const Header = () => {
     const [url, setUrl] = useState(''); // State to store the input URL
@@ -22,7 +22,7 @@ const Header = () => {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/get_reviews', {
+            const response = await axios.post(`${API_URL}/get_reviews`, {
                 url: url
             }, {
                 headers: {
@@ -40,7 +40,7 @@ const Header = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to analyze sentiment');
+            alert('Failed to analyze sentiment. Ensure backend is running.');
         }
     };
 
@@ -52,7 +52,7 @@ const Header = () => {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/aspect_based_analysis', {
+            const response = await axios.post(`${API_URL}/aspect_based_analysis`, {
                 url: url
             }, {
                 headers: {

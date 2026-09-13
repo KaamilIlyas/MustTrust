@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './Form.css'
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 export default function Form() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: ''
     });
+    const [status, setStatus] = useState(''); // '', 'success', 'error'
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,8 +17,9 @@ export default function Form() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setStatus('');
         try {
-            const response = await fetch('http://localhost:3001/submit', { // Update the URL
+            const response = await fetch(`${API_URL}/submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,18 +27,14 @@ export default function Form() {
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
-                console.log('Form submitted successfully');
-                // Clear form fields after successful submission
-                setFormData({
-                    name: '',
-                    email: '',
-                    message: ''
-                });
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
             } else {
-                console.error('Form submission failed');
+                setStatus('error');
             }
         } catch (error) {
             console.error('Error submitting form:', error);
+            setStatus('error');
         }
     };
     
@@ -98,7 +98,9 @@ export default function Form() {
                                 </div>
                                 <div className="text-end hover-effect-px">
                                 <button type='submit' className="btn form-button">Send Message</button>
-                                </div>           
+                                </div>
+                                {status === 'success' && <p className="mt-2 text-success">Message sent successfully!</p>}
+                                {status === 'error' && <p className="mt-2 text-danger">Something went wrong. Please try again.</p>}
                             </form>
                         </div>
                     </div>

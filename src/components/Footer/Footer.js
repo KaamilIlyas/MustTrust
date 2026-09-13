@@ -3,9 +3,12 @@ import './Footer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 export default function Footer() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -14,7 +17,7 @@ export default function Footer() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:3001/subscribe', {
+            const response = await fetch(`${API_URL}/subscribe`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -22,14 +25,16 @@ export default function Footer() {
                 body: JSON.stringify({ email })
             });
             if (response.ok) {
-                console.log('Email subscribed successfully');
-                setEmail(''); // Clear email input after successful subscription
-                setError(''); // Clear error message
+                setEmail('');
+                setError('');
+                setSuccess(true);
+                setTimeout(() => setSuccess(false), 4000);
             } else {
-                console.error('Email subscription failed');
+                setError('Subscription failed. Please try again.');
             }
         } catch (error) {
             console.error('Error subscribing email:', error);
+            setError('Something went wrong. Please try again.');
         }
     };
 
@@ -81,6 +86,7 @@ export default function Footer() {
                                 </button>
                             </div>
                             {error && <p className="error-message">{error}</p>}
+                            {success && <p className="text-success mt-1" style={{fontSize:'0.85rem'}}>Subscribed successfully!</p>}
                         </div>
                     </div>
                 </div>

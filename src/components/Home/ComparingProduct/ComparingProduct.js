@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './ComparingProduct.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
 export default function ComparingProduct() {
     const [urlOne, setUrlOne] = useState('');
     const [urlTwo, setUrlTwo] = useState('');
@@ -14,7 +16,7 @@ export default function ComparingProduct() {
     const handleCompare = (e) => {
         e.preventDefault(); // Prevent the form from submitting traditionally
 
-        axios.post('http://127.0.0.1:5000/compare_products', {
+        axios.post(`${API_URL}/compare_products`, {
             urls: [urlOne, urlTwo]
         }, {
             headers: {
@@ -29,7 +31,7 @@ export default function ComparingProduct() {
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('Failed to compare products');
+            alert('Failed to compare products. Ensure backend is running.');
         });
     };
 

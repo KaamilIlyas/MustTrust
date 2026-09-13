@@ -4,7 +4,6 @@ import Header from './Header/Header';
 import ComparingProduct from './ComparingProduct/ComparingProduct';
 import Features from './Features/Features';
 import Team from './Team/Team';
-import Work from './Work/Work';
 import Sentiment from './Sentiment/Sentiment';
 import BannerTwo from './BannerTwo/BannerTwo';
 import Questions from './Questions/Questions';
