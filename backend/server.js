@@ -241,7 +241,11 @@ app.post('/subscribe', (req, res) => {
     res.status(200).json({ success: true, message: 'Email subscribed successfully' });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`MustTrust backend is running on http://localhost:${PORT}`);
-});
+// Start server locally when run directly (node server.js or npm start)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`MustTrust backend is running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
