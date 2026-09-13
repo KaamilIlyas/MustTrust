@@ -34,9 +34,9 @@ const Header = () => {
             setResponseData(response.data); // Update the state with the response data
             setUrl(''); // Reset the URL input field
 
-            // Check if the result contains an error indicating no reviews
-            if (response.data.error === "Failed to fetch reviews.") {
-                alert('This product has no reviews');
+            // Check if the result contains an error or insufficient reviews notice
+            if (response.data.error) {
+                alert(response.data.error);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -61,11 +61,15 @@ const Header = () => {
             });
 
             console.log(response.data);
+            if (response.data.error) {
+                alert(response.data.error);
+                return;
+            }
+            if (!response.data.aspect_extraction_results || response.data.aspect_extraction_results.length === 0) {
+                alert('No aspect terms found in the reviews.');
+                return;
+            }
             createPDF(response.data);
-            // Display the aspect extraction results
-            // alert('Aspect extraction results: ' + JSON.stringify(response.data));
-
-            // Empty the URL after printing results
             setUrl('');
 
         } catch (error) {
@@ -101,13 +105,7 @@ const createPDF = (data) => {
         doc.text(20, posY, sentimentLines);
         posY += (sentimentLines.length * 7);
 
-        // const confidenceLines = doc.splitTextToSize(`Confidence: ${result.confidence.map(conf => (100 - parseFloat(conf)).toFixed(6)).join(", ")}`, 150);
-        // doc.text(20, posY, confidenceLines);
-        // posY += (confidenceLines.length * 7);
-
-
-
-        posY += 5; // Add a bit of spacing between reviews
+        posY += 5; // Add spacing between reviews
 
         // Check if the text exceeds the page height
         if (posY > 270) {
@@ -119,9 +117,6 @@ const createPDF = (data) => {
     doc.save('aspect_extraction_results.pdf');
 };
 
-
-    
-
     return (
         <header>
             <div id='home' className="header-overlay">
@@ -130,8 +125,8 @@ const createPDF = (data) => {
                         <div className="col-lg-12">
                             <h1>TrustIsMust</h1>
                             <p>Trust based rating system that provides sentiment and aspect based analysis of the reviews.</p>
-                            <form>
-                                <input type="text" placeholder="Enter url of a product" value={url} onChange={handleInputChange} />
+                            <form onSubmit={(e) => { e.preventDefault(); handleAnalyzeSentiment(); }}>
+                                <input type="text" placeholder="Enter URL of a Daraz product" value={url} onChange={handleInputChange} />
                             </form>
                         </div>
                     </div>
@@ -143,9 +138,16 @@ const createPDF = (data) => {
                     {responseData && !responseData.error && (
                         <div className="analysis-results">
                             <h2 style={{ color: 'white' }}><br></br>Analysis Results</h2>
-                            {/* <p><strong>Average Result:</strong> {responseData.result}</p> */}
+                            <p><strong>Actual Reviews Analyzed:</strong> {responseData.review_count}</p>
                             <p><strong>Sentiment Score:</strong> {responseData.average_sentiment ? responseData.average_sentiment.toFixed(2) + "/5" : "N/A"}</p>
                             <p><strong>Overall Sentiment:</strong> {responseData.average_sentiment ? (responseData.average_sentiment >= 3.4 ? "Positive" : "Negative") : "N/A"}</p>
+                            <p><strong>Review Authenticity:</strong> {responseData.result || "N/A"}</p>
+                        </div>
+                    )}
+                    {responseData && responseData.error && (
+                        <div className="analysis-results" style={{ backgroundColor: 'rgba(220, 53, 69, 0.85)', padding: '15px', borderRadius: '8px', marginTop: '20px' }}>
+                            <h4 style={{ color: 'white' }}>Notice</h4>
+                            <p style={{ color: 'white', margin: 0 }}>{responseData.error}</p>
                         </div>
                     )}
                 </div>

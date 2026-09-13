@@ -59,13 +59,15 @@ export default function ComparingProduct() {
                         <br></br>
                         <h3>Comparison Results</h3>
                         {comparisonResult.products.map((product, index) => (
-                            <p key={index}>Product {index + 1} Sentiment Score: {product.average_sentiment.toFixed(2)}/5</p>
+                            <p key={index}>
+                                <strong>Product {index + 1}:</strong> {product.average_sentiment !== null
+                                    ? `Sentiment Score: ${product.average_sentiment.toFixed(2)}/5 (${product.review_count} actual reviews)`
+                                    : `${product.status || 'Less than 3 reviews (cannot determine sentiment)'}`}
+                            </p>
                         ))}
 
-                        {comparisonResult.summary && (
-                            <>
-                                <p>Better Product Sentiment: {comparisonResult.summary.most_positive.toFixed(2)}</p>
-                            </>
+                        {comparisonResult.summary && comparisonResult.summary.most_positive !== null && (
+                            <p><strong>Top Recommended Product Score:</strong> {comparisonResult.summary.most_positive.toFixed(2)}/5</p>
                         )}
                     </div>
                 )}
