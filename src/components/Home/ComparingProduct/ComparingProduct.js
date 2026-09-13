@@ -9,29 +9,39 @@ export default function ComparingProduct() {
     const [urlTwo, setUrlTwo] = useState('');
     const [comparisonResult, setComparisonResult] = useState(null);
 
+    const [compareError, setCompareError] = useState('');
+
     const handleUrlChange = (e, setUrl) => {
         setUrl(e.target.value);
+        setCompareError('');
     };
 
     const handleCompare = (e) => {
-        e.preventDefault(); // Prevent the form from submitting traditionally
+        e.preventDefault();
+        setCompareError('');
+
+        if (!urlOne.trim() || !urlTwo.trim()) {
+            setCompareError('Please enter both product URLs to compare.');
+            return;
+        }
 
         axios.post(`${API_URL}/compare_products`, {
-            urls: [urlOne, urlTwo]
+            urls: [urlOne.trim(), urlTwo.trim()]
         }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         .then((response) => {
-            setComparisonResult(response.data);
-            // Reset URL states after displaying results
-            setUrlOne('');
-            setUrlTwo('');
+            if (response.data.error) {
+                setCompareError(response.data.error);
+            } else {
+                setComparisonResult(response.data);
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('Failed to compare products. Ensure backend is running.');
+            setCompareError('Failed to compare products. Ensure backend is running.');
         });
     };
 
@@ -53,6 +63,9 @@ export default function ComparingProduct() {
             <input type="text" className='second-url' placeholder="Second product URL" value={urlTwo} onChange={(e) => handleUrlChange(e, setUrlTwo)} />
             </form>
             <button type="submit" form="comparison-form" className="btn-submit hover-effect-px">Compare</button>
+            {compareError && (
+                <p className="text-danger mt-2" style={{ fontWeight: 600 }}>{compareError}</p>
+            )}
 
                 {comparisonResult && (
                     <div className="comparison-results">
