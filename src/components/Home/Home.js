@@ -3,7 +3,7 @@ import Banner from './Banner/Banner';
 import Header from './Header/Header';
 import ComparingProduct from './ComparingProduct/ComparingProduct';
 import Features from './Features/Features';
-import Team from './Team/Team';
+// import Team from './Team/Team';
 import Sentiment from './Sentiment/Sentiment';
 import BannerTwo from './BannerTwo/BannerTwo';
 import Questions from './Questions/Questions';
