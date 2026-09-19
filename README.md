@@ -51,4 +51,4 @@ Pre-trained model weights and training pipelines are located in `Daraz_Reviews/`
 
 ## License
 
-MIT\n
+MIT
