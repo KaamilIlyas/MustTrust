@@ -2,6 +2,8 @@
 
 E-commerce review authentication and Aspect-Based Sentiment Analysis (ABSA) system. Classifies whether customer feedback is genuine or deceptive using a trained Multinomial Naive Bayes model and extracts sentiment across granular product dimensions (build quality, battery life, packaging, value) to compute trust scores.
 
+**Live Demo:** [https://trust-is-must.vercel.app](https://trust-is-must.vercel.app/)
+
 ## Features
 
 - **Fake Review Detection**: Multinomial Naive Bayes model trained with Scikit-Learn and NLTK on e-commerce review datasets.
