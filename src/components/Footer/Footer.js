@@ -49,7 +49,7 @@ export default function Footer() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">
-                            <h4>TrustIsMust</h4>
+                            <h4>Sentiment AI</h4>
                             <ul className="list-unstyled footer-list">
                                 <li><a href="#home">Home</a></li>
                                 <li><a href="#features">Features</a></li>

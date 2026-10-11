@@ -28,7 +28,7 @@ window.addEventListener('scroll', function() {
     return (
         <Navbar bg="dark" expand="lg" expanded={expanded} onToggle={() => setExpanded(!expanded)}>
             <Container>
-                <Navbar.Brand href="#home">TrustIsMust</Navbar.Brand>
+                <Navbar.Brand href="#home">Sentiment AI</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mx-auto" onSelect={handleNavItemClick}>

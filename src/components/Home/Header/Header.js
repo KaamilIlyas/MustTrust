@@ -164,7 +164,7 @@ const Header = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
-                            <h1>TrustIsMust</h1>
+                            <h1>Sentiment AI</h1>
                             <p>Trust based rating system that provides sentiment and aspect based analysis of the reviews.</p>
                             <form onSubmit={(e) => { e.preventDefault(); handleAnalyzeSentiment(); }}>
                                 <input
@@ -300,7 +300,7 @@ const Header = () => {
                         <div className="sheet-content-scroll">
                             <div className="sheet-paper">
                                 <div className="paper-header">
-                                    <h2>TrustIsMust Aspect Extraction Results</h2>
+                                    <h2>Sentiment AI Aspect Extraction Results</h2>
                                     <p className="paper-meta">
                                         Date: {new Date().toLocaleDateString()} • Extracted from verified Daraz product customer reviews
                                     </p>

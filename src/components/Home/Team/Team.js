@@ -25,7 +25,7 @@ export default function Team() {
                     <div className="col-lg-12">
                         <h2 className="h1 team__title">BEHIND THE PEOPLE</h2>
                         <div className="section-title-border"></div>
-                        <p className="team__subtitle">Get to know the dedicated individuals who brought <strong>TrustIsMust</strong> to life and are committed to revolutionizing the way people perceive trust in online ratings.</p>
+                        <p className="team__subtitle">Get to know the dedicated individuals who brought <strong>Sentiment AI</strong> to life and are committed to revolutionizing the way people perceive trust in online ratings.</p>
                     </div>
                 </div>
             </div>
