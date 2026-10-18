@@ -4,6 +4,13 @@ const cors = require('cors');
 const axios = require('axios');
 const Sentiment = require('sentiment');
 const { Pool } = require('pg');
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+
+// Initialize S3 Client (Picks up IAM Role attached to EC2 automatically!)
+const s3Region = process.env.AWS_REGION || 'eu-north-1';
+const s3Bucket = process.env.S3_BUCKET_NAME || 'musttrust-storage-kamil-123';
+const s3Client = new S3Client({ region: s3Region });
 
 // Initialize PostgreSQL connection pool if DATABASE_URL is provided
 const pool = process.env.DATABASE_URL ? new Pool({
@@ -340,6 +347,74 @@ app.post('/subscribe', (req, res) => {
     }
     console.log('Newsletter subscription:', { email });
     res.status(200).json({ success: true, message: 'Email subscribed successfully' });
+});
+
+// 7. S3 Export Report & Presigned URL
+app.post('/export_report', async (req, res) => {
+    try {
+        const { productName, url, analysis } = req.body;
+        const reportContent = JSON.stringify({
+            title: 'MustTrust Sentiment Analysis Report',
+            productName: productName || 'Daraz Product',
+            productUrl: url || '',
+            generatedAt: new Date().toISOString(),
+            analysis: analysis || {}
+        }, null, 2);
+
+        const fileName = `reports/report-${Date.now()}.json`;
+
+        // 1. Upload private object to S3
+        await s3Client.send(new PutObjectCommand({
+            Bucket: s3Bucket,
+            Key: fileName,
+            Body: reportContent,
+            ContentType: 'application/json'
+        }));
+
+        // 2. Generate temporary Presigned Download URL valid for 15 minutes (900 seconds)
+        const downloadUrl = await getSignedUrl(s3Client, new GetObjectCommand({
+            Bucket: s3Bucket,
+            Key: fileName
+        }), { expiresIn: 900 });
+
+        console.log(`Saved report to S3 bucket ${s3Bucket}: ${fileName}`);
+        res.json({
+            success: true,
+            message: 'Report uploaded to S3 successfully',
+            fileName,
+            downloadUrl
+        });
+    } catch (err) {
+        console.error('Error uploading report to S3:', err);
+        res.status(500).json({ error: 'Failed to upload report to S3', details: err.message });
+    }
+});
+
+// 8. Healthcheck / Test S3 Endpoint
+app.get('/test_s3', async (req, res) => {
+    try {
+        const testKey = `test/test-${Date.now()}.txt`;
+        await s3Client.send(new PutObjectCommand({
+            Bucket: s3Bucket,
+            Key: testKey,
+            Body: 'Hello from MustTrust on AWS EC2 via IAM Role!',
+            ContentType: 'text/plain'
+        }));
+        const downloadUrl = await getSignedUrl(s3Client, new GetObjectCommand({
+            Bucket: s3Bucket,
+            Key: testKey
+        }), { expiresIn: 300 });
+
+        res.json({
+            success: true,
+            message: `Successfully wrote test file to S3 bucket ${s3Bucket}!`,
+            testKey,
+            downloadUrl
+        });
+    } catch (err) {
+        console.error('Error testing S3:', err);
+        res.status(500).json({ error: 'S3 test failed', details: err.message });
+    }
 });
 
 // Start server locally when run directly (node server.js or npm start)
