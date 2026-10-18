@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Header.css';
 import jsPDF from 'jspdf';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001');
 
 const Header = () => {
     const [url, setUrl] = useState('');
