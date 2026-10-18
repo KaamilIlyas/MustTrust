@@ -1,7 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const Sentiment = require('sentiment');
+const { Pool } = require('pg');
+
+// Initialize PostgreSQL connection pool if DATABASE_URL is provided
+const pool = process.env.DATABASE_URL ? new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
+}) : null;
+
+if (pool) {
+    pool.query('SELECT NOW()')
+        .then(() => console.log('Connected successfully to Amazon RDS PostgreSQL'))
+        .catch(err => console.error('Error connecting to RDS PostgreSQL:', err.message));
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -295,12 +309,26 @@ app.post('/compare_products', async (req, res) => {
 });
 
 // 5. Contact Form Submission
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
     const { name, email, message } = req.body;
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'All fields are required.' });
     }
     console.log('Contact form submission:', { name, email, message });
+
+    if (pool) {
+        try {
+            await pool.query(
+                'INSERT INTO contact_submissions (name, email, message) VALUES ($1, $2, $3)',
+                [name.trim(), email.trim(), message.trim()]
+            );
+            console.log('Saved submission to RDS PostgreSQL table contact_submissions');
+        } catch (dbErr) {
+            console.error('Failed to save to RDS:', dbErr);
+            return res.status(500).json({ error: 'Failed to save to database' });
+        }
+    }
+
     res.status(200).json({ success: true, message: 'Form submitted successfully' });
 });
 
